@@ -1,6 +1,6 @@
 {
-    "name": "react-native-fast-image-trustee",
-    "version": "8.6.41",
+    "name": "react-native-trustee-fast-image",
+    "version": "8.7.0",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
         "cache",
@@ -9,16 +9,12 @@
         "image",
         "priority"
     ],
-    "homepage": "https://github.com/DylanVann/react-native-fast-image#readme",
+    "homepage": "https://github.com/trustee-wallet/react-native-fast-image#readme",
     "bugs": {
-        "url": "https://github.com/DylanVann/react-native-fast-image/issues"
+        "url": "https://github.com/trustee-wallet/react-native-fast-image/issues"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DylanVann/react-native-fast-image.git"
-    },
-    "license": "(MIT AND Apache-2.0)",
-    "author": "Dylan Vann <dylan@dylanvann.com> (https://dylanvann.com)",
+    "license": "MIT",
+    "author": "trustee",
     "main": "dist/index.cjs.js",
     "module": "dist/index.js",
     "typings": "dist/index.d.ts",

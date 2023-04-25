@@ -9,11 +9,6 @@ Performant React Native image component.
 [![Version][version-badge]][package]
 [![Downloads][downloads-badge]][npmtrends]
 [![Build Status][build-badge]][build]
-[![Code Coverage][coverage-badge]][coverage]
-
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
 
 </div>
 
@@ -68,12 +63,13 @@ and
 **Note: You must be using React Native 0.60.0 or higher to use the most recent version of `react-native-fast-image`.**
 
 ```bash
-yarn add react-native-fast-image
+yarn add react-native-trustee-fast-image
 cd ios && pod install
 ```
 
 ```jsx
-import FastImage from 'react-native-fast-image'
+import FastImage from 'react-native-trustee-fast-image
+'
 
 const YourImage = () => (
     <FastImage
@@ -212,22 +208,30 @@ If supplied, changes the color of all the non-transparent pixels to the given co
 
 ## Static Methods
 
-### `FastImage.preload: (source[]) => void`
+### `FastImage.preload: (source[], onProgress?, onComplete?) => void`
 
 Preload images to display later. e.g.
 
 ```js
-FastImage.preload([
+FastImage.preload(
+  [
     {
-        uri: 'https://facebook.github.io/react/img/logo_og.png',
-        headers: { Authorization: 'someAuthToken' },
+      uri: 'https://facebook.github.io/react/img/logo_og.png',
+      headers: { Authorization: 'someAuthToken' },
     },
     {
-        uri: 'https://facebook.github.io/react/img/logo_og.png',
-        headers: { Authorization: 'someAuthToken' },
+      uri: 'https://facebook.github.io/react/img/logo_og.png',
+      headers: { Authorization: 'someAuthToken' },
     },
-])
+  ],
+  (finished, total) => console.log(`Preloaded ${finished}/${total} images`),
+  (finished, skipped) => console.log(`Completed. Failed to load ${skipped}/${finished} images`),
+)
 ```
+
+### `FastImage.getCachePath: (source) => Promise<void>`
+
+Get cached path image 
 
 ### `FastImage.clearMemoryCache: () => Promise<void>`
 
@@ -268,17 +272,9 @@ Thanks to [@mobinni](https://github.com/mobinni) for helping with the conceptual
 -   SDWebImage - `MIT`
 -   Glide - BSD, part MIT and Apache 2.0. See the [LICENSE](https://github.com/bumptech/glide/blob/master/license) file for details.
 
-[build-badge]: https://github.com/dylanvann/react-native-fast-image/workflows/CI/badge.svg
-[build]: https://github.com/DylanVann/react-native-fast-image/actions?query=workflow%3ACI
-[coverage-badge]: https://img.shields.io/codecov/c/github/dylanvann/react-native-fast-image.svg
-[coverage]: https://codecov.io/github/dylanvann/react-native-fast-image
-[downloads-badge]: https://img.shields.io/npm/dm/react-native-fast-image.svg
-[npmtrends]: http://www.npmtrends.com/react-native-fast-image
+[build-badge]: https://github.com/trustee-wallet/react-native-fast-image/workflows/CI/badge.svg
+[build]: https://github.com/trustee-wallet/react-native-fast-image/actions?query=workflow%3ACI
+[downloads-badge]: https://img.shields.io/npm/dm/react-native-trustee-fast-image.svg
+[npmtrends]: http://www.npmtrends.com/react-native-trustee-fast-image
 [package]: https://www.npmjs.com/package/react-native-fast-image
-[version-badge]: https://img.shields.io/npm/v/react-native-fast-image.svg
-[twitter]: https://twitter.com/home?status=Check%20out%20react-native-fast-image%20by%20%40atomarranger%20https%3A//github.com/DylanVann/react-native-fast-image
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/DylanVann/react-native-fast-image.svg?style=social
-[github-watch-badge]: https://img.shields.io/github/watchers/dylanvann/react-native-fast-image.svg?style=social
-[github-watch]: https://github.com/dylanvann/react-native-fast-image/watchers
-[github-star-badge]: https://img.shields.io/github/stars/dylanvann/react-native-fast-image.svg?style=social
-[github-star]: https://github.com/dylanvann/react-native-fast-image/stargazers
+[version-badge]: https://img.shields.io/npm/v/react-native-trustee-fast-image.svg

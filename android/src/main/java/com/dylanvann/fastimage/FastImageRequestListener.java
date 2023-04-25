@@ -16,7 +16,8 @@ public class FastImageRequestListener implements RequestListener<Drawable> {
     static final String REACT_ON_ERROR_EVENT = "onFastImageError";
     static final String REACT_ON_LOAD_EVENT = "onFastImageLoad";
     static final String REACT_ON_LOAD_END_EVENT = "onFastImageLoadEnd";
-    private final String key;
+
+    private String key;
 
     FastImageRequestListener(String key) {
         this.key = key;

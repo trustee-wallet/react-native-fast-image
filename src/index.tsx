@@ -17,6 +17,12 @@ import {
     ColorValue,
 } from 'react-native'
 
+import preloaderManager from './PreloaderManager'
+
+const FastImageViewNativeModule = Platform.OS === 'android'
+  ? NativeModules.FastImagePreloaderManager
+  : NativeModules.FastImageView
+
 export type ResizeMode = 'contain' | 'cover' | 'stretch' | 'center'
 
 const resizeMode = {
@@ -77,11 +83,12 @@ export interface ImageStyle extends FlexStyle, TransformsStyle, ShadowStyleIOS {
     borderTopLeftRadius?: number
     borderTopRightRadius?: number
     overlayColor?: string
+    tintColor?: string
     opacity?: number
 }
 
 export interface FastImageProps extends AccessibilityProps, ViewProps {
-    source?: Source | ImageRequireSource
+    source: Source | ImageRequireSource
     defaultSource?: ImageRequireSource
     resizeMode?: ResizeMode
     fallback?: boolean
@@ -151,6 +158,14 @@ const resolveDefaultSource = (
     // iOS or other number mapped assets
     // In iOS the number is passed, and bridged automatically into a UIImage
     return defaultSource
+}
+
+export interface PreloadProgressHandler {
+    (loaded: number, total: number): void
+}
+
+export interface PreloadCompletionHandler {
+    (loaded: number, skipped: number): void
 }
 
 function FastImageBase({
@@ -231,9 +246,14 @@ export interface FastImageStaticProperties {
     resizeMode: typeof resizeMode
     priority: typeof priority
     cacheControl: typeof cacheControl
-    preload: (sources: Source[]) => void
+    preload: (
+        sources: Source[],
+        onProgress?: PreloadProgressHandler,
+        onComplete?: PreloadCompletionHandler,
+    ) => void
     clearMemoryCache: () => Promise<void>
     clearDiskCache: () => Promise<void>
+    getCachePath: (source: Source) => Promise<string>;
 }
 
 const FastImage: React.ComponentType<FastImageProps> &
@@ -245,13 +265,17 @@ FastImage.cacheControl = cacheControl
 
 FastImage.priority = priority
 
-FastImage.preload = (sources: Source[]) =>
-    NativeModules.FastImageView.preload(sources)
+FastImage.preload = (
+    sources: Source[],
+    onProgress?: PreloadProgressHandler,
+    onComplete?: PreloadCompletionHandler,
+) => preloaderManager.preload(sources, onProgress, onComplete)
 
-FastImage.clearMemoryCache = () =>
-    NativeModules.FastImageView.clearMemoryCache()
+FastImage.clearMemoryCache = () => FastImageViewNativeModule.clearMemoryCache()
 
-FastImage.clearDiskCache = () => NativeModules.FastImageView.clearDiskCache()
+FastImage.clearDiskCache = () => FastImageViewNativeModule.clearDiskCache()
+
+FastImage.getCachePath = (source: Source) => FastImageViewNativeModule.getCachePath(source)
 
 const styles = StyleSheet.create({
     imageContainer: {

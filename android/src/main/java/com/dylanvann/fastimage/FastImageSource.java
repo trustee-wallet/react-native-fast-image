@@ -17,7 +17,7 @@ public class FastImageSource extends ImageSource {
     private static final String ANDROID_RESOURCE_SCHEME = "android.resource";
     private static final String ANDROID_CONTENT_SCHEME = "content";
     private static final String LOCAL_FILE_SCHEME = "file";
-    private final Headers mHeaders;
+    private Headers mHeaders;
     private Uri mUri;
 
     public static boolean isBase64Uri(Uri uri) {
@@ -107,6 +107,10 @@ public class FastImageSource extends ImageSource {
     }
 
     public GlideUrl getGlideUrl() {
+        Uri uriVal = getUri();
+        if (Uri.EMPTY.equals(uriVal)) {
+            return null;
+        }
         return new GlideUrl(getUri().toString(), getHeaders());
     }
 }

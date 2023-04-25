@@ -8,7 +8,6 @@ Performant React Native image component.
 
 [![Version][version-badge]][package]
 [![Downloads][downloads-badge]][npmtrends]
-[![Build Status][build-badge]][build]
 
 </div>
 

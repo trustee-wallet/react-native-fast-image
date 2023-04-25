@@ -1,6 +1,6 @@
 {
     "name": "react-native-trustee-fast-image",
-    "version": "8.7.0",
+    "version": "8.7.1",
     "description": "🚩 FastImage, performant React Native image component.",
     "keywords": [
         "cache",
